@@ -1,4 +1,4 @@
-﻿Param(   
+Param(   
     [Parameter(Mandatory=$True,   
                 ValueFromPipelineByPropertyName=$false,   
                 HelpMessage='Specify the AKS cluster name.',   
@@ -18,12 +18,19 @@
                 HelpMessage='Specify the name of the subcription.',   
                 Position=2)]   
                 [String]   
-                $AzureSubscriptionName,      
+                $AzureSubscriptionName,    
 
     [Parameter(Mandatory=$True,   
                 ValueFromPipelineByPropertyName=$false,   
-                HelpMessage='Specify the operation to be performed on the AKS cluster name (Start/Stop).',   
+                HelpMessage='Specify the Id of the subcription.',   
                 Position=2)]   
+                [String]   
+                $AzureSubscriptionId,      
+
+    [Parameter(Mandatory=$True,   
+                ValueFromPipelineByPropertyName=$false,   
+                HelpMessage='Specify the operation to be performed on the AKS cluster name (Start/Stop).',
+                Position=2)]
                 [ValidateSet('Start','Stop')]   
                 [String]   
                 $operation   
@@ -44,9 +51,9 @@ try
     $AccessToken = $accToken.Token   
     $headers_Auth = @{'Authorization'="Bearer $AccessToken"}   
     #Setting GET RestAPI Uri   
-    $getRestUri = "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroupName/providers/Microsoft.ContainerService/managedClusters/$($aksClusterName)?api-version=2021-05-01"
-    #Setting POST RestAPI Uri 
-    $postRestUri = "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroupName/providers/Microsoft.ContainerService/managedClusters/$aksClusterName/$($operation.ToLower())?api-version=2021-05-01"   
+    $getRestUri = "https://management.azure.com/subscriptions/$AzureSubscriptionId/resourceGroups/$resourceGroupName/providers/Microsoft.ContainerService/managedClusters/$($aksClusterName)?api-version=2021-05-01"   
+    #Setting POST RestAPI Uri   
+    $postRestUri = "https://management.azure.com/subscriptions/$AzureSubscriptionId/resourceGroups/$resourceGroupName/providers/Microsoft.ContainerService/managedClusters/$aksClusterName/$($operation.ToLower())?api-version=2021-05-01"   
     try   
     {   
         #Getting the cluster state   
