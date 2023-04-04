@@ -44,9 +44,9 @@ try
     $AccessToken = $accToken.Token   
     $headers_Auth = @{'Authorization'="Bearer $AccessToken"}   
     #Setting GET RestAPI Uri   
-    $getRestUri = "https://management.azure.com/subscriptions/c38e07e7-2a05-4a86-b68b-e10edfa6fdcf/resourceGroups/$resourceGroupName/providers/Microsoft.ContainerService/managedClusters/$($aksClusterName)?api-version=2021-05-01"   
-    #Setting POST RestAPI Uri   
-    $postRestUri = "https://management.azure.com/subscriptions/c38e07e7-2a05-4a86-b68b-e10edfa6fdcf/resourceGroups/$resourceGroupName/providers/Microsoft.ContainerService/managedClusters/$aksClusterName/$($operation.ToLower())?api-version=2021-05-01"   
+    $getRestUri = "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroupName/providers/Microsoft.ContainerService/managedClusters/$($aksClusterName)?api-version=2021-05-01"
+    #Setting POST RestAPI Uri 
+    $postRestUri = "https://management.azure.com/subscriptions/$subscriptionId/resourceGroups/$resourceGroupName/providers/Microsoft.ContainerService/managedClusters/$aksClusterName/$($operation.ToLower())?api-version=2021-05-01"   
     try   
     {   
         #Getting the cluster state   
